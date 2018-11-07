@@ -1,28 +1,44 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component, Suspense, lazy} from 'react';
 import './App.css';
+const ReactLogo = lazy(() => import('./ReactLogo.js'));
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+    constructor(props) {
+        super(props);
+        this.state = {
+            showImage: true
+        };
+    }
+
+    showImage = () => {
+        this.setState({showImage: true});
+    }
+
+    hideImage = () => {
+      this.setState({showImage: false});
   }
+
+    render() {
+        if(!this.state.showImage){
+            return(
+                <div className="App">
+                    <h1>React 16.6: Suspense and Lazy</h1>
+                    <button onClick={this.showImage}>Show Image</button>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div className="App">
+                  <h1>React 16.6: Suspense and Lazy</h1>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <ReactLogo/>
+                  </Suspense>
+                  <button onClick={this.hideImage}>Hide Image</button>
+                </div>
+            )
+        }
+    }
 }
 
 export default App;
