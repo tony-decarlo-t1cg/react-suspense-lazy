@@ -31,7 +31,7 @@ class App extends Component {
             return (
                 <div className="App">
                   <h1>React 16.6: Suspense and Lazy</h1>
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<div className="loading">Lazy Loading...</div>}>
                     <ReactLogo/>
                   </Suspense>
                   <button onClick={this.hideImage}>Hide Image</button>
